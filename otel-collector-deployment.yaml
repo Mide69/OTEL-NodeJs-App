@@ -28,21 +28,23 @@ spec:
         - containerPort: 13133
         resources:
           requests:
+            memory: 64Mi
+            cpu: 50m
+          limits:
             memory: 128Mi
             cpu: 100m
-          limits:
-            memory: 256Mi
-            cpu: 200m
         livenessProbe:
           httpGet:
             path: /
             port: 13133
-          initialDelaySeconds: 32
+          initialDelaySeconds: 60
+          periodSeconds: 10
         readinessProbe:
           httpGet:
             path: /
             port: 13133
-          initialDelaySeconds: 10
+          initialDelaySeconds: 30
+          periodSeconds: 5
       volumes:
       - name: otel-collector-config-vol
         configMap:

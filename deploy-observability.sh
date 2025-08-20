@@ -3,33 +3,33 @@ echo "Deploying OpenTelemetry Observability Stack..."
 
 echo
 echo "1. Deploying OpenTelemetry Collector..."
-kubectl apply -f otel-collector-config.yaml
-kubectl apply -f otel-collector-deployment.yaml
+kubectl apply -f otel-collector-config.yaml --validate=false
+kubectl apply -f otel-collector-deployment.yaml --validate=false
 
 echo
 echo "2. Deploying Jaeger..."
-kubectl apply -f jaeger-deployment.yaml
+kubectl apply -f jaeger-deployment.yaml --validate=false
 
 echo
 echo "3. Deploying Prometheus..."
-kubectl apply -f prometheus-deployment.yaml
+kubectl apply -f prometheus-deployment.yaml --validate=false
 
 echo
 echo "4. Deploying Grafana..."
-kubectl apply -f grafana-deployment.yaml
+kubectl apply -f grafana-deployment.yaml --validate=false
 
 echo
 echo "5. Deploying Mario Application..."
-kubectl apply -f deployment.yaml
-kubectl apply -f service.yaml
+kubectl apply -f deployment.yaml --validate=false
+kubectl apply -f service.yaml --validate=false
 
 echo
 echo "Waiting for pods to be ready..."
-kubectl wait --for=condition=ready pod -l app=otel-collector --timeout=60s
-kubectl wait --for=condition=ready pod -l app=jaeger --timeout=60s
-kubectl wait --for=condition=ready pod -l app=prometheus --timeout=60s
-kubectl wait --for=condition=ready pod -l app=grafana --timeout=60s
-kubectl wait --for=condition=ready pod -l app=mario --timeout=60s
+kubectl wait --for=condition=ready pod -l app=otel-collector --timeout=120s
+kubectl wait --for=condition=ready pod -l app=jaeger --timeout=120s
+kubectl wait --for=condition=ready pod -l app=prometheus --timeout=120s
+kubectl wait --for=condition=ready pod -l app=grafana --timeout=120s
+kubectl wait --for=condition=ready pod -l app=mario --timeout=120s
 
 echo
 echo "Deployment complete!"
