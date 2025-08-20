@@ -18,9 +18,18 @@ spec:
         ports:
         - containerPort: 16686
         - containerPort: 14250
+        - containerPort: 4317
+        - containerPort: 4318
         env:
         - name: COLLECTOR_OTLP_ENABLED
           value: "true"
+        resources:
+          requests:
+            memory: 64Mi
+            cpu: 50m
+          limits:
+            memory: 128Mi
+            cpu: 100m
 ---
 apiVersion: v1
 kind: Service
@@ -33,6 +42,12 @@ spec:
     - name: grpc
       port: 14250
       targetPort: 14250
+    - name: otlp-grpc
+      port: 4317
+      targetPort: 4317
+    - name: otlp-http
+      port: 4318
+      targetPort: 4318
 ---
 apiVersion: v1
 kind: Service

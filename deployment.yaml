@@ -17,3 +17,10 @@ spec:
         image: sevenajay/mario:latest 
         ports:
         - containerPort: 80
+        resources:
+          requests:
+            memory: 32Mi
+            cpu: 25m
+          limits:
+            memory: 64Mi
+            cpu: 50m
