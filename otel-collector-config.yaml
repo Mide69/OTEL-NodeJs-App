@@ -14,18 +14,16 @@ data:
 
     processors:
       batch:
-        timeout: 1s
-        send_batch_size: 1024
 
     exporters:
-      jaeger:
-        endpoint: jaeger-collector:14250
+      logging:
+        loglevel: info
+      otlp/jaeger:
+        endpoint: jaeger-collector:4317
         tls:
           insecure: true
       prometheus:
         endpoint: "0.0.0.0:8889"
-      logging:
-        loglevel: info
 
     extensions:
       health_check:
@@ -37,8 +35,8 @@ data:
         traces:
           receivers: [otlp]
           processors: [batch]
-          exporters: [jaeger, logging]
+          exporters: [logging, otlp/jaeger]
         metrics:
           receivers: [otlp]
           processors: [batch]
-          exporters: [prometheus, logging]
+          exporters: [logging, prometheus]

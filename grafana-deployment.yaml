@@ -37,13 +37,11 @@ spec:
         volumeMounts:
         - name: grafana-datasources
           mountPath: /etc/grafana/provisioning/datasources
-        resources:
-          requests:
-            memory: 64Mi
-            cpu: 50m
-          limits:
-            memory: 128Mi
-            cpu: 100m
+        # Resources removed for minimal deployment
+        # resources:
+        #   requests:
+        #     memory: 32Mi
+        #     cpu: 25m
       volumes:
       - name: grafana-datasources
         configMap:
